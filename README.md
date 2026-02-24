@@ -91,11 +91,11 @@ Displays:
 ## 📂 Project Structure
 AI-Scam-Message-Detection/
 │
-├── app.py # Main Streamlit Application
-├── detect.pkl # Trained ML Model
-├── vectorizer.pkl # TF-IDF Vectorizer
-├── requirements.txt # Required Python Libraries
-├── README.md # Project Documentation
+├── app.py              # Main Streamlit Application
+├── detect.pkl          # Trained ML Model
+├── vectorizer.pkl      # TF-IDF Vectorizer
+├── requirements.txt    # Required Python Libraries
+├── README.md           # Project Documentation
 
 ## How to Run
     pip install -r requirements.txt

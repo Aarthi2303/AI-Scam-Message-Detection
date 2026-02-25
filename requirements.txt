@@ -5,4 +5,4 @@ scikit-learn
 nltk
 matplotlib
 langdetect
-googletrans==4.0.0-rc1
+deep-translator

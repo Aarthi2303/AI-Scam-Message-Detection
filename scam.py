@@ -148,7 +148,10 @@ def keyword_override(msg, model_result, model_probability):
         "activate", "refund", "otp", "verify",
         "bank", "lottery", "prize", "blocked",
         "suspended", "update", "limited",
-        "offer", "winner", "congratulations"
+        "offer", "winner", "congratulations",
+        "invest", "earn", "guaranteed",
+        "profit", "return", "double",
+        "crypto", "bitcoin", "trading"
     ]
 
     text = msg.lower()

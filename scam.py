@@ -34,13 +34,20 @@ st.markdown("""
     color: white !important;
 }
 
+/*  textarea label size */
+label[data-testid="stWidgetLabel"] {
+    color: #38bdf8 !important;  
+}
+
 /* Text Area */
 textarea {
     background-color: #1e293b !important;
     color: white !important;
     border-radius: 10px !important;
     border: 1px solid #334155 !important;
+    
 }
+
 
 /* Buttons */
 .stButton>button {
@@ -60,6 +67,22 @@ textarea {
 h1, h2, h3 {
     color: #f1f5f9;
 }
+
+/* Increase metric number size */
+[data-testid="stMetricValue"] {
+    font-size: 40px !important;   /* Increase size */
+    font-weight: 800 !important;  /* Make bold */
+    color: white !important;
+}
+
+
+/* Change Metric Labels */
+[data-testid="stMetricLabel"] {
+    color: #00f0ff !important; 
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
+
 /* Download Button */
 .stDownloadButton>button {
     background-color: #1e293b !important;
@@ -78,8 +101,6 @@ h1, h2, h3 {
 
 </style>
 """, unsafe_allow_html=True)
-
-
 
 # LOAD MODEL 
 
@@ -225,9 +246,9 @@ if menu == "Admin Dashboard":
 
         col1, col2, col3 = st.columns(3)
 
-        col1.metric("Total Messages Checked", total)
-        col2.metric("Scam Detected", scam_count)
-        col3.metric("Safe Messages", safe_count)
+        col1.metric("📥Total Messages Checked", total)
+        col2.metric("💀Scam Detected", scam_count)
+        col3.metric("✅Safe Messages", safe_count)
 
         st.subheader("📈 Prediction Chart")
         chart_data = df["Prediction"].value_counts()

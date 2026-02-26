@@ -161,9 +161,26 @@ def multilingual_predict(msg):
 
     return result, probability, lang, msg_en
 
+def trusted_keywords(msg):
+    trusted_words = [
+        "national scholarship portal","nic","gov.in","government",
+        "tn govt","uidai","rbi","aadhar","income tax","do not reply",
+        "scholarship","validity","recharge","auto generated","official message",
+        "renewal","application","transaction alert","statement"
+    ]
+    
+    msg = msg.lower()
+    
+    for word in trusted_words:
+        if word in msg:
+            return True
+    return False
 
 def keyword_override(msg, model_result, model_probability):
 
+     if trusted_keywords(msg):
+         return 0, 0.90 
+        
     scam_keywords = [
         "click", "urgent", "deactivate", "account",
         "activate", "refund", "otp", "verify",

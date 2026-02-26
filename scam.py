@@ -176,7 +176,8 @@ def trusted_keywords(msg):
             return True
     return False
 
- def keyword_override(msg, model_result, model_probability):
+def keyword_override(msg, model_result, model_probability):
+    
     if trusted_keywords(msg):
         return 0, 0.90 
 
@@ -197,6 +198,7 @@ def trusted_keywords(msg):
         return 1, 0.95 
     else:
         return model_result, model_probability
+ 
 
 
 # SIDEBAR NAVIGATION

@@ -176,16 +176,15 @@ def trusted_keywords(msg):
             return True
     return False
 
-def keyword_override(msg, model_result, model_probability):
+ def keyword_override(msg, model_result, model_probability):
+    if trusted_keywords(msg):
+        return 0, 0.90 
 
-     if trusted_keywords(msg):
-         return 0, 0.90 
-        
     scam_keywords = [
         "click", "urgent", "deactivate", "account",
         "activate", "refund", "otp", "verify",
         "bank", "lottery", "prize", "blocked",
-        "suspended", "update", "limited",
+        "suspended", "limited",
         "offer", "winner", "congratulations",
         "invest", "earn", "guaranteed",
         "profit", "return", "double",

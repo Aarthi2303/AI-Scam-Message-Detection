@@ -1,4 +1,4 @@
-# 🛡️ AI Scam Message Detection System
+# 🛡️ Smart Fraud Detection and Classification System for Digital Communication
 
 👩🏼‍💻An intelligent multilingual scam detection system 💻built using Machine Learning and Streamlit.  
 This project detects fraudulent or spam messages📱 in multiple languages and provides real-time prediction with an interactive admin dashboard📊.
@@ -7,7 +7,7 @@ This project detects fraudulent or spam messages📱 in multiple languages and p
 
 ## 📌 Project Overview
 
-The AI Scam Detection System is designed to identify scam messages such as:
+The  Scam Detection System is designed to identify scam messages such as:
 
 - Bank Fraud
 - Phishing Attacks
@@ -89,7 +89,7 @@ Displays:
 ----------------------------------------------
 
 ## 📂 Project Structure
-AI-Scam-Message-Detection
+Smart Fraud Detection and Classification System for Digital Communication
 
   --scam.py              # Main Streamlit Application
   --detect.pkl           # Trained ML Model

@@ -6,11 +6,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from nltk.corpus import stopwords
 from langdetect import detect
-from deep_translator import GoogleTranslator
+from googletrans import Translator
 
 nltk.download('stopwords')
 STOPWORDS = set(stopwords.words('english'))
 
+translator = Translator()
 
 st.set_page_config(page_title="AI Scam Detection", layout="wide")
 
@@ -102,6 +103,8 @@ h1, h2, h3 {
 </style>
 """, unsafe_allow_html=True)
 
+
+
 # LOAD MODEL 
 
 model = pickle.load(open("detect.pkl", "rb"))
@@ -138,7 +141,26 @@ def predict_scam_type(msg):
     else:
         return "General Spam"
 
-
+language_map = {
+    "en": "English",
+    "hi": "Hindi",
+    "ta": "Tamil",
+    "te": "Telugu",
+    "ml": "Malayalam",
+    "fr": "French",
+    "es": "Spanish",
+    "zh": "Chinese",
+    "zh-cn": "Chinese",
+    "ar": "Arabic",
+    "de": "German",
+    "it": "Italian",
+    "ja": "Japanese",
+    "ko": "Korean",
+    "pt": "Portuguese",
+    "ru": "Russian",
+    "id": "Indonesian",
+    "tr": "Turkish"
+}
 #  MULTILANGUAGE PREDICTION
 
 def multilingual_predict(msg):
@@ -149,7 +171,8 @@ def multilingual_predict(msg):
         lang = "en"
 
     if lang != "en":
-        msg_en = GoogleTranslator(source='auto', target='en').translate(msg)
+        translated = translator.translate(msg, dest='en')
+        msg_en = translated.text
     else:
         msg_en = msg
 
@@ -161,31 +184,14 @@ def multilingual_predict(msg):
 
     return result, probability, lang, msg_en
 
-def trusted_keywords(msg):
-    trusted_words = [
-        "national scholarship portal","nic","gov.in","government",
-        "tn govt","uidai","rbi","aadhar","income tax","do not reply",
-        "scholarship","validity","recharge","auto generated","official message",
-        "renewal","application","transaction alert","statement"
-    ]
-    
-    msg = msg.lower()
-    
-    for word in trusted_words:
-        if word in msg:
-            return True
-    return False
 
 def keyword_override(msg, model_result, model_probability):
-    
-    if trusted_keywords(msg):
-        return 0, 0.90 
 
     scam_keywords = [
         "click", "urgent", "deactivate", "account",
         "activate", "refund", "otp", "verify",
         "bank", "lottery", "prize", "blocked",
-        "suspended", "limited",
+        "suspended", "update", "limited",
         "offer", "winner", "congratulations",
         "invest", "earn", "guaranteed",
         "profit", "return", "double",
@@ -198,7 +204,6 @@ def keyword_override(msg, model_result, model_probability):
         return 1, 0.95 
     else:
         return model_result, model_probability
- 
 
 
 # SIDEBAR NAVIGATION
@@ -209,7 +214,7 @@ menu = st.sidebar.selectbox("Navigation", ["User Panel", "Admin Dashboard"])
 
 if menu == "User Panel":
 
-    st.title("📩 AI Scam Message Detection System")
+    st.title("📩 Smart Fraud Detection and Classification System for Digital Communication")
 
     msg = st.text_area("Enter Message")
 
@@ -221,8 +226,12 @@ if menu == "User Panel":
         else:
             result, probability, detected_lang, msg_en = multilingual_predict(msg)
             final_result, final_probability = keyword_override(msg_en, result, probability)
-            st.write(f"🌐 Detected Language: {detected_lang.upper()}")
-
+            detected_lang = detected_lang.lower().strip()
+            full_lang = language_map.get(detected_lang, detected_lang.upper())
+            st.write(f"🌐 Detected Language: {full_lang}")
+            # SHOW TRANSLATION
+            if detected_lang != "en":
+               st.write(f"📝 English Translation: {msg_en}")
         
 
             if final_result == 1:

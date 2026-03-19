@@ -6,12 +6,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from nltk.corpus import stopwords
 from langdetect import detect
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 
 nltk.download('stopwords')
 STOPWORDS = set(stopwords.words('english'))
 
-translator = Translator()
+
 
 st.set_page_config(page_title="AI Scam Detection", layout="wide")
 
@@ -171,8 +171,8 @@ def multilingual_predict(msg):
         lang = "en"
 
     if lang != "en":
-        translated = translator.translate(msg, dest='en')
-        msg_en = translated.text
+        translated = GoogleTranslator(source='auto', target='en').translate(msg)
+        msg_en = translated
     else:
         msg_en = msg
 
